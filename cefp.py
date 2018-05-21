@@ -3,7 +3,7 @@
 import functools
 
 
-class CEFParser:
+class CEFParser(object):
     TOKEN_BACKSLASH = '\\'
     TOKEN_PIPE = '|'
     TOKEN_SPACE = ' '
