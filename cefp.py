@@ -120,7 +120,7 @@ class CEFParser(object):
         }
 
         if fields[7]:
-            ret['extension'].update(cls.splitext(fields[7]))
+            ret['extension'].update(cls.splitext(fields[7].lstrip()))
 
         return ret
 
