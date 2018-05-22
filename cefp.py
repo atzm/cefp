@@ -106,7 +106,7 @@ class CEFParser(object):
         if len(fields) != 8:
             raise ValueError('invalid data')
 
-        ret = {
+        return {
             'version':   fields[0][4:],
             'device':    {
                 'vendor':         fields[1],
@@ -116,13 +116,8 @@ class CEFParser(object):
             },
             'name':      fields[5],
             'severity':  fields[6],
-            'extension': {},
+            'extension': cls.splitext(fields[7].lstrip()),
         }
-
-        if fields[7]:
-            ret['extension'].update(cls.splitext(fields[7].lstrip()))
-
-        return ret
 
 
 parse = CEFParser.parse
