@@ -126,8 +126,22 @@ parse = CEFParser.parse
 def main():
     import sys
     import json
+    import select
+
+    def dump(data):
+        json.dump(parse(data), sys.stdout, indent=4)
+        sys.stdout.write('\n')
+
+    def dumpfp(fp):
+        for data in iter(fp.readline, ''):
+            dump(data.rstrip())
+
+    rlist, _, _ = select.select([sys.stdin.fileno()], [], [], 0)
+    if rlist or not sys.argv[1:]:
+        dumpfp(sys.stdin)
+
     for data in sys.argv[1:]:
-        print(json.dumps(parse(data), indent=4))
+        dump(data)
 
 
 if __name__ == '__main__':
